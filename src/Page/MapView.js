@@ -30,14 +30,15 @@ function MapView() {
   }, []);
 
   function getDataPeta() {
-    axios.get("http://yourUrl").then((response) => {
+    axios.get("http://192.168.1.11:3001/api/v1/list/dbd").then((response) => {
       console.log(response.data);
       setDataPeta(response.data);
     });
   }
 
+  // console.log(dataPeta)
   return (
-    <div>
+    <div className="map-body">
       <Navbar color="light" expand="md" light>
         <NavbarBrand >Pesebaran Penyakit DBD</NavbarBrand>
         <NavbarToggler onClick={function noRefCheck() {}} />
@@ -50,20 +51,20 @@ function MapView() {
               <NavLink href="/components/">Informasi</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/components/">Tentang Kami</NavLink>
+              <NavLink href="/about">Tentang Kami</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
 
-      <CardTitle tag="h5"
+      {/* <CardTitle tag="h5"
         style={{
           marginLeft:"35vw",
           marginTop:"0.5vw"
         }}
       >
         Peta Pesabaran Virus DBD
-      </CardTitle>
+      </CardTitle> */}
       <MapContainer center={center} zoom={7} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -120,11 +121,28 @@ function MapView() {
           );
         })}
 
-        {/* {dataWilayah.map((row) => (
-          <Marker position={[row.posisiLat, row.posisiLong]} icon={customIcon}>
-            <Popup>{row.namaWilayah}</Popup>
+        {/* {dataPeta.map((row) => (
+          <Marker position={[row.kabupaten_kota.lat_koordinat, row.kabupaten_kota.long_koordinat]} icon={customIcon}>
+            <Popup>{row.kabupaten_kota.nama}</Popup>
           </Marker>
         ))} */}
+
+        {dataPeta.map((v) => {
+          return(
+          <Marker position={[v.kabupaten_kota.long_kordinat, v.kabupaten_kota.lat_kordinat]} icon={customIcon}>
+            <Popup>
+              Wilayah : {v.kabupaten_kota.nama}<br/>
+              Jumlah Kasus Laki : {v.jml_kasus_laki}<br/>
+              Jumlah Kasus Perempuan : {v.jml_kasus_perempuan}<br/>
+              Jumlah Meninggal Laki : {v.jml_meninggal_laki}<br/>
+              Jumlah Meninggal Perempuan : {v.jml_meninggal_perempuan}<br/>
+              Cfr Laki : {v.cfr_laki}<br/>
+              Cfr Perempuan : {v.cfr_perempuan}<br/>
+            </Popup>
+          </Marker>
+          // <CardTitle>{v.kabupaten_kota.nama}</CardTitle>
+          )
+        })}
       </MapContainer>
     </div>
   );
