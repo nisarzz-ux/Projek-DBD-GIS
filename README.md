@@ -1,3 +1,6 @@
+# Description
+This project team mate on class is to display a website based on information technology, GIS maps, by displaying a map of the distribution of dengue virus cases in East Java province in 2020 using reactjs(frontend) and postgresql , expressJS, Prisma ( backend )
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
